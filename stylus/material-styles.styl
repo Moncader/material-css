@@ -1,0 +1,285 @@
+$component-grid = 8px;
+$text-grid = 4px;
+$icon-grid = 4px;
+
+$keyline = $component-grid * 2;
+
+$content-item-height = $component-grid * 9;
+$menu-item-height = $component-grid * 8;
+$title-height = ($component-grid * 7) - ($component-grid * 2);
+$header-height = $component-grid * 6;
+
+$content-item-content-left = 72px;
+
+container($direction = row, $align = center, $justify = space-between)
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+
+flex($multiplier)
+  -webkit-flex: $multiplier;
+  flex: $multiplier;
+
+wrap($wrapmode = wrap)
+  -webkit-flex-wrap: $wrapmode;
+  flex-wrap: $wrapmode;
+
+layer($multiplier)
+  if multiplier != 0
+    $multiplier = $multiplier - 1;
+    box-shadow: 0px (1px + (4px * $multiplier)) (4px + (4px * $multiplier)) rgba(#000, .6);
+
+card()
+  border-radius: 2px;
+  border-style: none;
+
+blackTextColor($opacity)
+  rgba(#000, $opacity);
+
+whiteTextColor($opacity)
+  rgba(#FFF, $opacity);
+
+noselect()
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+nohighlight()
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0) !important; 
+
+/**********/
+/* LAYOUT */
+/**********/
+
+@keyframes enter 
+  0%
+    transform: scale3d(0, 0, 0);
+  100%
+    transform: scale3d(1, 1, 1);
+
+*
+  box-sizing: border-box;
+  transition: 150ms ease-out;
+
+html
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+body
+  margin: 0 auto;
+  padding: 0;
+  
+  width: 100%;
+  height: 100%;
+  
+  color: blackTextColor(.54);
+  font-size: 14px;
+  line-height: 1em;
+  
+  font-family: 'Noto Sans', sans-serif;
+
+body > *
+  padding-left: $keyline;
+  padding-right: $keyline;
+
+header
+  width: 100%;
+  height: $header-height;
+  
+  font-size: 24px;
+  font-weight: 400;
+  
+  container();
+
+header.display
+  min-height: $title-height;
+  height: auto;
+  max-width: 100%;
+  font-size: 45px;
+  font-weight: 400;
+  color: whiteTextColor(.54);
+  background-color: $color-main;
+  
+  > *
+    height: $title-height;
+    margin: $component-grid;
+
+header.title
+  height: $title-height;
+  max-height: $title-height;
+  max-width: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  color: whiteTextColor(.87);
+  background-color: $color-main-2;
+
+input[type=search]
+  font-size: 20px;
+  padding: $text-grid;
+  border-style: none;
+  border-bottom: solid 1px rgba(#000, 0.5);
+
+input[type=search]:hover
+  border-bottom-color: $color-accent;
+
+input[type=search]:focus
+  outline: none;
+  border-bottom: solid 2px $color-accent;
+
+list
+  container(row wrap, center, space-around);
+  
+  overflow: auto;
+  width: 100%;
+  
+  padding: $keyline;
+  
+item
+  position: relative;
+  
+  width: $component-grid * 32;
+  height: $component-grid * 28;
+  
+  font-size: 16px;
+  
+  margin-right: $component-grid;
+  margin-bottom: $component-grid;
+  
+  color: whiteTextColor(.87);
+  
+  card();
+  layer(1);
+
+  outline: solid 0 $color-accent;
+
+  //animation: enter 500ms ease-out forwards;
+  
+item:hover
+  layer(1.5);
+  
+item:active
+  layer(2);
+
+item.dragover
+  outline-width: $component-grid;
+
+item.focused
+  position: fixed;
+  top: $keyline;
+  bottom: $keyline;
+  left: $keyline;
+  right: $keyline;
+  
+  margin: 0;
+  
+  width: auto;
+  height: auto;
+  
+  z-index: 1;
+
+item > content
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #FFF;
+  text-align: center;
+  color: blackTextColor(.8);
+  container();
+  overflow: auto;
+
+item > content > *
+  width: auto;
+  height: 100%;
+
+bar
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  container();
+  flex(0);
+  padding-left: $keyline;
+  padding-right: $component-grid;
+  height: $component-grid * 6;
+  background-color: blackTextColor(.4);
+
+bar > text
+  flex(1);
+
+btn
+  container(row, center, center);
+  font-weight: 400;
+  font-size: 16px;
+  background-color: $color-accent;
+  
+  height: 36px;
+  min-width: 64px;
+  
+  margin: ((48px - @height) / 2) $component-grid;
+  
+  padding: 0 $component-grid;
+  
+  cursor: pointer;
+  
+  noselect();
+  nohighlight();
+
+  layer(1);
+
+btn:hover
+  layer(1.5);
+  
+btn:active
+  layer(2);
+
+item btn
+  display: none;
+
+item.focused btn
+  display: inherit;
+
+fab
+  container(row, center, center);
+  position: absolute;
+  font-weight: 400;
+  font-size: 32px;
+  
+  color: whiteTextColor(1);
+  
+  background-color: $color-accent;
+  
+  height: 56px;
+  width: 56px;
+  
+  border-radius: 50%;
+  padding: 0 $component-grid;
+  
+  cursor: pointer;
+  
+  noselect();
+  nohighlight();
+
+  layer(1);
+
+fab.global
+  position: fixed;
+  bottom: ($content-item-content-left / 3);
+  right: ($content-item-content-left / 3);
+
+fab:hover
+  layer(1.5);
+  
+fab:active
+  layer(2);
+  
+fab:active > *
+  transform: rotate(45deg);
