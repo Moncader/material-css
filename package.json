@@ -1,9 +1,9 @@
 {
   "name": "material-css",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "description": "Material Design implemented in pure CSS, customizable via Stylus.",
   "bin": {
-    "material-css": "./bin/material-css.js"
+    "material-css": "./bin/material-css"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
   "license": "Zlib",
   "bugs": {
     "url": "https://github.com/Moncader/material-css/issues"
+  },
+  "dependencies": {
+    "stylus": "^0.51.1",
+    "yargs": "^3.9.1"
   }
 }
